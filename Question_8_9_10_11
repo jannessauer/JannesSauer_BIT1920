@@ -1,0 +1,19 @@
+Question8:
+
+db.getCollection('examen db').find({method_of_admission:"TABLET;BUCCAL, SUBLINGUAL"},{drug:1})
+
+Question9:
+
+db.getCollection('examen db').find({percentage_of_side_effects:{$gt:8}})
+
+Question 10:
+
+db.getCollection('examen db').aggregate( [
+{ $group: { _id: "$company", avgsideeff: { $avg: "$percentage_of_side_effects" } } },
+{ $match: { avgsideeff: { $gt:10 } } } ] )
+
+
+Question 11:
+
+db.getCollection('examen db').aggregate( [{ $group: { _id: "$drug", min: { $min: "$percentage_of_side_effects" }, max: { $max: "$percentage_of_side_effects" } } },{ $match: {  } } ] )
+
