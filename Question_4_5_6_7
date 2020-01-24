@@ -1,0 +1,62 @@
+
+Question 4
+
+mysql> select gene_name,((seq_region_end - seq_region_start) + 1) as "Gene length" from gene order by ((seq_region_end - seq_region_start) + 1) desc limit 1 offset 2;
++-----------+-------------+
+| gene_name | Gene length |
++-----------+-------------+
+| PARP1     |     2493040 |
++-----------+-------------+
+1 row in set (0,02 sec)
+
+Question 5
+
+mysql> select gene_name, count(exon_id) as "Exon count" from gene join transcript on gene.gene_id = transcript.gene_id join exon_transcript on transcript.transcript_id = exon_transcript.transcript_id group by gene_name  order by count(exon_id) desc limit 1;
++-----------+------------+
+| gene_name | Exon count |
++-----------+------------+
+| COL11A2   |       3598 |
++-----------+------------+
+1 row in set (0,88 sec)
+
+question 6
+
+mysql> select chromosome, count(gene_name) from gene where description like "%cancer%" and description like "%breast%" group by chromosome order by count(gene_name) desc limit 1;
++------------+------------------+
+| chromosome | count(gene_name) |
++------------+------------------+
+| 16         |                2 |
++------------+------------------+
+1 row in set (0,03 sec)
+
+mysql> select chromosome, count(transcript_id) as "Transcript count" from gene join transcript on gene.gene_id = transcript.gene_id where chromosome = 12 group by chromosome;
++------------+------------------+
+| chromosome | Transcript count |
++------------+------------------+
+| 12         |            11610 |
++------------+------------------+
+1 row in set, 5348 warnings (0,03 sec)
+
+Question 7
+
+mysql> select count(*) from exon;
++----------+
+| count(*) |
++----------+
+|   642590 |
++----------+
+1 row in set (0,03 sec)
+
+mysql> select count(*) from exon_transcript;
++----------+
+| count(*) |
++----------+
+|  1178393 |
++----------+
+1 row in set (0,13 sec)
+
+there are more rows in exon_transcript.
+The way an inner join works is that it produces a full cross-product between the two tables. This cross-product contains a row for each pair of rows in the input tables. If there are multiple matching rows between the two tables, you'll get multiple rows in the result set.
+
+
+
