@@ -1,0 +1,19 @@
+UNF: 
+researchlabdb(Personnel number, Name, Date of Birth, Labcode, Labname, Research code, Research description, Research supervisor)
+1NF
+#each row should be single valued, each column should be the same type of value and each #row must be uniquely identified by 1 column primary key.
+researchlabdb(Personnel number, Name, Date of Birth, Labcode, Research code)
+lab(labcode, labname)
+research(researchcode, description, supervisor)
+2NF :
+#there must be no partial dependency
+personnell(Persno, Name, Dateofbirth)
+project(Persno,labcode, researchcode)
+lab(labcode, labname)
+research(researchcode, description, supervisor)
+3NF: 
+#all field collumns must be determined by the the key of that table and no other columns.
+personnell(Persno, Name, Dateofbirth)
+project(Persno,labcode, researchcode)
+lab(labcode, labname)
+research(researchcode, description, supervisor)
